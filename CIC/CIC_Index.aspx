@@ -11,7 +11,7 @@
     <form id="form1" runat="server">
         <div>
             &nbsp;<asp:Label ID="Label2" runat="server" Text="職別："></asp:Label>
-            <input id="Text2" type="text" placeholder="請輸入職別" aria-required="true"/>&nbsp;&nbsp;
+            <input id="Text2" name="Text2" type="text" placeholder="請輸入職別" aria-required="true"/>&nbsp;&nbsp;
             <asp:Button ID="btn_DownLoad" runat="server" Text="下載" OnClick="btn_DownLoad_Click"/>
             <br />
             <div>
@@ -20,5 +20,6 @@
             
         </div>
     </form>
+
 </body>
 </html>

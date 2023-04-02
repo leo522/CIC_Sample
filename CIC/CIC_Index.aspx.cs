@@ -22,9 +22,9 @@ namespace CIC
             //// 設定圖片上的文字
             //SetTextOnImage(bibs);
 
-            string bibs = Request.QueryString["Text2"];
+            //string bibs = Request.QueryString["Text2"];
 
-
+            string bibs = Request.QueryString["BIB"];
             string result = GetNameFromDatabase(bibs);
             SetTextOnImage(result);
         }
@@ -89,6 +89,10 @@ namespace CIC
         #region 下載圖片
         protected void btn_DownLoad_Click(object sender, EventArgs e)
         {
+            string bibs = Request.Form["Text2"];
+            string result = GetNameFromDatabase(bibs);
+            SetTextOnImage(result);
+
             Response.ContentType = "image/jpeg";
             Response.AppendHeader("Content-Disposition", "attachment; filename=CertificateWithName.jpg");
             Response.TransmitFile(Server.MapPath("~/Images/CertificateWithName.jpg"));
