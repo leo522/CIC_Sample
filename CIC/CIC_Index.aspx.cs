@@ -196,12 +196,13 @@ namespace CIC
                         {
                             string columnStr = string.Empty;
 
-                            switch (cell.CellType)
+                            
+                                switch (cell.CellType)
                             {
                                 case CellType.Numeric:  // 數值格式
                                     if (DateUtil.IsCellDateFormatted(cell))
                                     {   // 日期格式
-                                        columnStr = cell.DateCellValue.ToString();
+                                        columnStr = DateTime.FromOADate(cell.NumericCellValue).ToString();
                                     }
                                     else
                                     {   // 數值格式
@@ -276,36 +277,10 @@ namespace CIC
                             command.Parameters.AddWithValue("@NAME_ZH", rowData[1]);
                             command.Parameters.AddWithValue("@RECEIPT_LIST", rowData[2]);
                             command.Parameters.AddWithValue("@NO_LIST", rowData[3]);
-                            //DateTime effectiveStartDate;
-                            //if (DateTime.TryParseExact(rowData[4], "yyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out effectiveStartDate))
-                            //{
-                            //    effectiveStartDate = effectiveStartDate.AddYears(1911); // 將年份加上 1911
-                            //    command.Parameters.AddWithValue("@EFFECTIVE_STARTDATE", effectiveStartDate);
-                            //}
-                            //else
-                            //{
-                            //    command.Parameters.AddWithValue("@EFFECTIVE_STARTDATE", DBNull.Value);
-                            //}
-
-                            //DateTime effectiveEndDate;
-                            //if (DateTime.TryParseExact(rowData[5], "yyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out effectiveEndDate))
-                            //{
-                            //    effectiveEndDate = effectiveEndDate.AddYears(1911); // 將年份加上 1911
-                            //    command.Parameters.AddWithValue("@EFFECTIVE_ENDDATE", effectiveEndDate);
-                            //}
-                            //else
-                            //{
-                            //    command.Parameters.AddWithValue("@EFFECTIVE_ENDDATE", DBNull.Value);
-                            //}
                             DateTime effectiveStartDate;
-                            int effectiveStartDateInt;
-                            if (int.TryParse(rowData[4], out effectiveStartDateInt))
+                            if (DateTime.TryParseExact(rowData[4], "yyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out effectiveStartDate))
                             {
-                                if (effectiveStartDateInt < 1000000) // 民國年格式
-                                {
-                                    effectiveStartDateInt += 19110000;
-                                }
-                                effectiveStartDate = DateTime.ParseExact(effectiveStartDateInt.ToString(), "yyyyMMdd", CultureInfo.InvariantCulture);
+                                effectiveStartDate = DateTime.FromOADate(effectiveStartDate.ToOADate() + 2); //將Excel存的日期轉為.NET日期類別
                                 command.Parameters.AddWithValue("@EFFECTIVE_STARTDATE", effectiveStartDate);
                             }
                             else
@@ -314,20 +289,16 @@ namespace CIC
                             }
 
                             DateTime effectiveEndDate;
-                            int effectiveEndDateInt;
-                            if (int.TryParse(rowData[5], out effectiveEndDateInt))
+                            if (DateTime.TryParseExact(rowData[5], "yyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out effectiveEndDate))
                             {
-                                if (effectiveEndDateInt < 1000000) // 民國年格式
-                                {
-                                    effectiveEndDateInt += 19110000;
-                                }
-                                effectiveEndDate = DateTime.ParseExact(effectiveEndDateInt.ToString(), "yyyyMMdd", CultureInfo.InvariantCulture);
+                                effectiveEndDate = DateTime.FromOADate(effectiveEndDate.ToOADate() + 2); //將Excel存的日期轉為.NET日期類別
                                 command.Parameters.AddWithValue("@EFFECTIVE_ENDDATE", effectiveEndDate);
                             }
                             else
                             {
                                 command.Parameters.AddWithValue("@EFFECTIVE_ENDDATE", DBNull.Value);
                             }
+
                             command.Parameters.AddWithValue("@Dept", rowData[6]);
                             connection.Open();
                             command.ExecuteNonQuery();
@@ -347,7 +318,6 @@ namespace CIC
             }
         }
         #endregion
-
 
         #region 產生流水序號
         private string GenerateFileId()
