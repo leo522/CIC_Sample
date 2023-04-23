@@ -61,7 +61,6 @@ namespace CIC
                         int lastRow = sheet.LastRowNum;
 
                         // 逐行讀取資料
-
                         for (int i = 6; i <= lastRow - 6; i++)
                         {
                             IRow row = sheet.GetRow(i);
