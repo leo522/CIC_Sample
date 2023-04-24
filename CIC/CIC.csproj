@@ -208,6 +208,8 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Excel_DataTable.aspx" />
+    <Content Include="Excel_Import.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="FileUpload.aspx" />
     <Content Include="Global.asax" />
@@ -328,6 +330,20 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Excel_DataTable.aspx.cs">
+      <DependentUpon>Excel_DataTable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Excel_DataTable.aspx.designer.cs">
+      <DependentUpon>Excel_DataTable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Excel_Import.aspx.cs">
+      <DependentUpon>Excel_Import.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Excel_Import.aspx.designer.cs">
+      <DependentUpon>Excel_Import.aspx</DependentUpon>
     </Compile>
     <Compile Include="FileUpload.aspx.cs">
       <DependentUpon>FileUpload.aspx</DependentUpon>
