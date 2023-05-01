@@ -113,6 +113,10 @@
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
@@ -129,6 +133,30 @@
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.9\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -214,6 +242,26 @@
     <Content Include="FileUpload.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Images\Pics.jpg" />
+    <Content Include="Models\BookModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BookModel.edmx</DependentUpon>
+      <LastGenOutput>BookModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\BookModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BookModel.edmx</DependentUpon>
+      <LastGenOutput>BookModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="NorthModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NorthModel.edmx</DependentUpon>
+      <LastGenOutput>NorthModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="NorthModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NorthModel.edmx</DependentUpon>
+      <LastGenOutput>NorthModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Point_Import.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -252,6 +300,20 @@
       <DependentUpon>CICModel.edmx</DependentUpon>
     </Content>
     <Content Include="ExcelFile\教學點數申請表.xls" />
+    <EntityDeploy Include="NorthModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NorthModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="NorthModel.edmx.diagram">
+      <DependentUpon>NorthModel.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\BookModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BookModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\BookModel.edmx.diagram">
+      <DependentUpon>BookModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -286,6 +348,7 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\NorthWindController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -295,6 +358,9 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Categories.cs">
+      <DependentUpon>NorthModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="CICModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -324,12 +390,21 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CustomerDemographics.cs">
+      <DependentUpon>NorthModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Customers.cs">
+      <DependentUpon>NorthModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Employees.cs">
+      <DependentUpon>NorthModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Excel_DataTable.aspx.cs">
       <DependentUpon>Excel_DataTable.aspx</DependentUpon>
@@ -355,7 +430,50 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BookModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BookModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BookModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CICBOOK.cs" />
     <Compile Include="Models\CIC_REPORT.cs" />
+    <Compile Include="Models\CIC_ReportModel.cs" />
+    <Compile Include="Models\PointBook.cs">
+      <DependentUpon>BookModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PointBookModel.cs" />
+    <Compile Include="Models\PointModel.cs" />
+    <Compile Include="NorthModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NorthModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NorthModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NorthModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NorthModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NorthModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Orders.cs">
+      <DependentUpon>NorthModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Order_Details.cs">
+      <DependentUpon>NorthModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Point_Import.aspx.cs">
       <DependentUpon>Point_Import.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -363,7 +481,16 @@
     <Compile Include="Point_Import.aspx.designer.cs">
       <DependentUpon>Point_Import.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Products.cs">
+      <DependentUpon>NorthModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Region.cs">
+      <DependentUpon>NorthModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Shippers.cs">
+      <DependentUpon>NorthModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -378,6 +505,15 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
+    <Compile Include="API\TestController.cs" />
+    <Compile Include="Suppliers.cs">
+      <DependentUpon>NorthModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Territories.cs">
+      <DependentUpon>NorthModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\ViewModel_NorthWindCustomer.cs" />
+    <Compile Include="ViewModel\ViewModel_PointBook.cs" />
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

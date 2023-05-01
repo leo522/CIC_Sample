@@ -5,13 +5,16 @@ using System.Web;
 
 namespace CIC.Models
 {
-    public class CIC_REPORT
+    public class PonitBooks
     {
-        string BIB { get; set; }
-        string NAME_ZH { get; set; }
-        string RECEIPT_LIST { get; set; }
-        string NO_LIST { get; set; }
-        string EFFECTIVE_DATE { get; set; }
-        string DEPT { get; set; }
+        string Dept { get; set; }
+        string EmpName { get; set; }
+        string EID { get; set; }
+        decimal BasePoint { get; set; }
+        decimal WeightPoint { get; set; }
+        decimal TeacherPoint { get; set; }
+        decimal SubstituteTraining { get; set; }
+        decimal TotalScore { get; set; }
+        string Remark { get;set; }
     }
 }

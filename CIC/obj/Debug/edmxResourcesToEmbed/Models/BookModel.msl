@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CIC_ReportModel1StoreContainer" CdmEntityContainer="CIC_ReportEntities1">
+    <EntitySetMapping Name="PointBook">
+      <EntityTypeMapping TypeName="CIC_ReportModel1.PointBook">
+        <MappingFragment StoreEntitySet="PointBook">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Dept" ColumnName="Dept" />
+          <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+          <ScalarProperty Name="EID" ColumnName="EID" />
+          <ScalarProperty Name="BasePoint" ColumnName="BasePoint" />
+          <ScalarProperty Name="WeightPoint" ColumnName="WeightPoint" />
+          <ScalarProperty Name="TeacherPoint" ColumnName="TeacherPoint" />
+          <ScalarProperty Name="SubstituteTraining" ColumnName="SubstituteTraining" />
+          <ScalarProperty Name="TotalScore" ColumnName="TotalScore" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

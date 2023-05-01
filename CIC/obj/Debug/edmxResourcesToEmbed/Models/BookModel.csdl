@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CIC_ReportModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="PointBook">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Dept" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="EmpName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="EID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="BasePoint" Type="Double" />
+    <Property Name="WeightPoint" Type="Double" />
+    <Property Name="TeacherPoint" Type="Double" />
+    <Property Name="SubstituteTraining" Type="Double" />
+    <Property Name="TotalScore" Type="Double" />
+    <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="CIC_ReportEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="PointBook" EntityType="Self.PointBook" />
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CIC_ReportModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="PointBook">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Dept" Type="nvarchar" MaxLength="10" />
+    <Property Name="EmpName" Type="nvarchar" MaxLength="10" />
+    <Property Name="EID" Type="nvarchar" MaxLength="20" />
+    <Property Name="BasePoint" Type="float" />
+    <Property Name="WeightPoint" Type="float" />
+    <Property Name="TeacherPoint" Type="float" />
+    <Property Name="SubstituteTraining" Type="float" />
+    <Property Name="TotalScore" Type="float" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityContainer Name="CIC_ReportModel1StoreContainer">
+    <EntitySet Name="PointBook" EntityType="Self.PointBook" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>
