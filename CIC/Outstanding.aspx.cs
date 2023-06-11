@@ -269,54 +269,25 @@ namespace CIC
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    string source = RBSource.SelectedValue;
-            //    string itemName = Request.Form["Item"];
-            //    string support = Request.Form["SupportItem"];
-            //    string dateDayValue = Request.Form["DateDay"];
-            //    DateTime activeDate;
-            //    string type = RBType.SelectedValue;
-
-            //    string con = WebConfigurationManager.ConnectionStrings["CIC_ReportEntities"].ConnectionString;
-            //    using (SqlConnection conn = new SqlConnection(con))
-            //    {
-            //        string query = "Insert Into OutstandindData (RBsource, Awards, Organization, ActiveDates, RBtype) Values (@RBsource, @Awards, @Organization, @ActiveDates, @RBtype)";
-
-            //        using (SqlCommand comm = new SqlCommand(query, conn))
-            //        {
-            //            comm.Parameters.AddWithValue("@RBsource", source);
-            //            comm.Parameters.AddWithValue("@Awards", itemName);
-            //            comm.Parameters.AddWithValue("@Organization", support);
-            //            comm.Parameters.AddWithValue("@ActiveDates", dateDayValue);
-            //            comm.Parameters.AddWithValue("@RBtype", type);
-
-            //            conn.Open();
-            //            comm.ExecuteNonQuery();
-            //        }
-            //    }
-            //    StatusMessage.Text = "存檔成功";
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
-
             try
             {
-                string source = RBSource.SelectedValue;
-                string itemName = Request.Form["Item"];
-                string support = Request.Form["SupportItem"];
-                string dateDayValue = Request.Form["DateDay"];
-                DateTime activeDate;
-                string type = RBType.SelectedValue;
+                string source = RBSource.SelectedValue; //申請資料來源
+                string applicant = RBUser.SelectedValue; //申請者身分
+                string competition = Request.Form["Competition"]; //競賽主題
+                string teamCompetition = Request.Form["TeamCompetition"]; //團隊參賽主題
+                string item = Request.Form["Item"]; //活動名稱
+                string itemName = Request.Form["ItemName"]; //獎項名稱/得獎名次
+                string organ = Request.Form["Organization"]; //主辦單位
+                string dateDayValue = Request.Form["DateDay"]; //發生日期
+                DateTime activedate = DateTime.Parse(dateDayValue); //發生日期，字串轉dateTime
+                string type = RBType.SelectedValue; //申請資料類型
 
                 string fileName = FileUploads.FileName;
                 string fileExtension = Path.GetExtension(fileName).ToLower();
-                if (FileUploads.HasFiles)
-                {
-                    if (IsAllowedFileType(fileExtension)) //检查文件类型
-                    {
+                //if (FileUploads.HasFiles)
+                //{
+                    //if (IsAllowedFileType(fileExtension)) //檢查文件類型
+                    //{
                         string contentType = FileUploads.PostedFile.ContentType;
                         byte[] imageFile = FileUploads.FileBytes;
                         string fileData = Encoding.Default.GetString(imageFile);
@@ -324,35 +295,36 @@ namespace CIC
                         string con = WebConfigurationManager.ConnectionStrings["CIC_ReportEntities"].ConnectionString;
                         using (SqlConnection conn = new SqlConnection(con))
                         {
-                            string query = "INSERT INTO OutstandindData (RBsource, Awards, Organization, ActiveDates, RBtype, ImagesData, ContentType, FilesData, FilesContentType) VALUES (@RBsource, @Awards, @Organization, @ActiveDates, @RBtype, @ImagesData, @ContentType, CONVERT(varbinary(max), @FilesData), @FilesContentType)";
+                            string query = "INSERT INTO OutstandindData (Applicant, Source, CompetitionTheme, TeamCompetitionTheme, ActivityName, Awards, Organization, ActiveDates, ApplicationType, CreateTime) VALUES (@Applicant, @Source, @CompetitionTheme, @TeamCompetitionTheme, @ActivityName, @Awards, @Organization, @ActiveDates, @ApplicationType, GETDATE())";
 
                             using (SqlCommand comm = new SqlCommand(query, conn))
                             {
-                                comm.Parameters.AddWithValue("@RBsource", source);
-                                comm.Parameters.AddWithValue("@Awards", itemName);
-                                comm.Parameters.AddWithValue("@Organization", support);
-                                comm.Parameters.AddWithValue("@ActiveDates", dateDayValue);
-                                comm.Parameters.AddWithValue("@RBtype", type);
-                                comm.Parameters.AddWithValue("@ImagesData", imageFile);
-                                comm.Parameters.AddWithValue("@ContentType", contentType);
-                                comm.Parameters.AddWithValue("@FilesData", fileData);
-                                comm.Parameters.AddWithValue("@FilesContentType", fileExtension);
+                                comm.Parameters.AddWithValue("@Applicant", applicant); //申請者身分
+                                comm.Parameters.AddWithValue("@Source", source); //申請資料來源
+                                comm.Parameters.AddWithValue("@CompetitionTheme", competition); //競賽主題
+                                comm.Parameters.AddWithValue("@TeamCompetitionTheme", teamCompetition); //團隊競賽主題
+                                comm.Parameters.AddWithValue("@ActivityName", item); //活動名稱
+                                comm.Parameters.AddWithValue("@Awards", itemName); //獎項名稱/得獎名次
+                                comm.Parameters.AddWithValue("@Organization", organ); //主辦單位
+                                comm.Parameters.AddWithValue("@ActiveDates", activedate); //發生日期
+                                comm.Parameters.AddWithValue("@ApplicationType", type); //申請資料類型
 
                                 conn.Open();
                                 comm.ExecuteNonQuery();
+                                conn.Close();
                             }
                         }
-                    }
-                }
-
+                    //}
+                //}
                 StatusMessage.Text = "存檔成功";
+                string script = "alert('存檔成功');";
+                ClientScript.RegisterStartupScript(this.GetType(), "SaveSuccessAlert", script, true); //js彈跳視窗
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-
         #endregion
     }
 }
