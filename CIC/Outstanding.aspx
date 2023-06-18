@@ -64,7 +64,7 @@
 
             <asp:Label ID="SupportingData" runat="server" Text="佐證資料(圖片或文件檔)：" style="display: block;"></asp:Label>
             <asp:FileUpload ID="FileUploads" runat="server" Multiple="true" />
-            <%--<asp:Button ID="UploadBtn" runat="server" Text="上傳文件檔案" OnClick="UploadBtn_Click" />--%>
+            <asp:Button ID="UploadBtn" runat="server" Text="上傳文件圖片檔案" OnClick="UploadBtn_Click" />
             <asp:Label ID="StatusLabel" runat="server" Text=""></asp:Label>
             <asp:Button ID="btnSave" runat="server" Text="存檔"  OnClick="btnSave_Click" />
         </div><hr />
@@ -79,13 +79,21 @@
         <div>
             <asp:Label ID="Pic" runat="server" Text="圖片展示"></asp:Label>
             <asp:TextBox ID="ImageIdTextBox" runat="server"></asp:TextBox>
-            <asp:Button ID="btn_Pic" runat="server" Text="讀取圖片" OnClick="btn_Pic_Click" />     
+            <asp:Button ID="btn_Pic" runat="server" Text="讀取圖片" OnClick="btn_Pic_Click" OnClientClick="showReadConfirmation();"/>     
             <asp:Label ID="StatusLabelPic" runat="server" Text=""></asp:Label>
+            <asp:Label ID="HaveRead" runat="server" Text=""></asp:Label>
         </div><hr />
 
         <div>
             <asp:Image ID="ImageExhibit" runat="server" />
         </div>
+
     </form>
+
+    <script type="text/javascript">
+    function showReadConfirmation() {
+        alert("已讀");
+    }
+    </script>
 </body>
 </html>

@@ -72,31 +72,85 @@ namespace CIC
         {
             try
             {
+                //if (FileUploads.HasFiles)
+                //{
+                //    foreach (HttpPostedFile file in FileUploads.PostedFiles)
+                //    {
+                //        string fileName = Path.GetFileName(file.FileName); //獲取文件訊息
+                //        string contentType = file.ContentType;
+
+                //        if (IsAllowedFileType(contentType)) //檢查文件類型
+                //        {
+                //            byte[] fileData = new byte[file.ContentLength];
+                //            file.InputStream.Read(fileData, 0, file.ContentLength);
+                //            string fileDataAsString = Encoding.Default.GetString(fileData);
+
+                //            SaveFileToDataBase(fileData, contentType, fileDataAsString, contentType);
+                //            StatusLabel.Text = "文件上傳成功";
+                //        }
+                //        else
+                //        {
+                //            StatusLabel.Text = "文件格式錯誤";
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //    StatusLabel.Text = "請選擇要上傳的文件";
+                //}
                 if (FileUploads.HasFiles)
                 {
-                    foreach (HttpPostedFile file in FileUploads.PostedFiles)
+                    try
                     {
-                        string fileName = Path.GetFileName(file.FileName); //獲取文件訊息
-                        string contentType = file.ContentType;
-
-                        if (IsAllowedFileType(contentType)) //檢查文件類型
+                        foreach (HttpPostedFile uploadedFile in FileUploads.PostedFiles)
                         {
-                            byte[] fileData = new byte[file.ContentLength];
-                            file.InputStream.Read(fileData, 0, file.ContentLength);
-                            string fileDataAsString = Encoding.Default.GetString(fileData);
+                            string fileName = FileUploads.FileName;
+                            string fileExtension = Path.GetExtension(fileName).ToLower();
 
-                            SaveFileToDataBase(fileData, contentType, fileDataAsString, contentType);
-                            StatusLabel.Text = "文件上傳成功";
+                            if (IsValidImageExtension(fileExtension)) //驗證上傳圖片格式
+                            {
+                                string contentType = FileUploads.PostedFile.ContentType;
+                                byte[] pics = FileUploads.FileBytes;
+                                uploadedFile.InputStream.Read(pics, 0, uploadedFile.ContentLength);
+
+                                //檢查圖片是否已存在相同
+                                if (!IsImageExists(pics))
+                                {
+                                    string con = WebConfigurationManager.ConnectionStrings["CIC_ReportEntities"].ConnectionString;
+                                    using (SqlConnection conn = new SqlConnection(con))
+                                    {
+                                        string InsertPic = "Insert Into Images(FileName, ContentType, ImageData) VALUES (@FileName, @ContentType, @ImageData)";
+
+                                        SqlCommand command = new SqlCommand(InsertPic, conn);
+                                        command.Parameters.AddWithValue("@FileName", fileName);
+                                        command.Parameters.AddWithValue("@ContentType", contentType);
+                                        command.Parameters.AddWithValue("@ImageData", pics);
+
+                                        conn.Open();
+                                        command.ExecuteNonQuery();
+                                        conn.Close();
+                                    }
+                                    StatusLabel.Text = "圖片上傳成功";
+                                }
+                                else
+                                {
+                                    StatusLabel.Text = "已存在相同圖片";
+                                }
+                            }
+                            else
+                            {
+                                StatusLabel.Text = "只允許上傳 PNG、JPG、JPEG 圖片格式！";
+                            }
                         }
-                        else
-                        {
-                            StatusLabel.Text = "文件格式錯誤";
-                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        StatusLabel.Text = "檔案上傳失敗：" + ex.Message;
                     }
                 }
                 else
                 {
-                    StatusLabel.Text = "請選擇要上傳的文件";
+                    StatusLabel.Text = "請選擇要上傳的圖片！";
                 }
             }
             catch (Exception ex)
@@ -104,56 +158,7 @@ namespace CIC
                 throw ex;
             }
         }
-        //if (FileUploads.HasFiles)
-        //{
-        //    try
-        //    {
-        //        string fileName = FileUploads.FileName;
-        //        string fileExtension = Path.GetExtension(fileName).ToLower();
-
-        //        if (IsValidImageExtension(fileExtension)) //驗證上傳圖片格式
-        //        {
-        //            string contentType = FileUploads.PostedFile.ContentType;
-        //            byte[] pics = FileUploads.FileBytes;
-
-        //            //檢查圖片是否已存在相同
-        //            if (!IsImageExists(pics))
-        //            {
-        //                string con = WebConfigurationManager.ConnectionStrings["CIC_ReportEntities"].ConnectionString;
-        //                using (SqlConnection conn = new SqlConnection(con))
-        //                {
-        //                    string InsertPic = "Insert Into Images(FileName, ContentType, ImageData) VALUES (@FileName, @ContentType, @ImageData)";
-
-        //                    SqlCommand command = new SqlCommand(InsertPic, conn);
-        //                    command.Parameters.AddWithValue("@FileName", fileName);
-        //                    command.Parameters.AddWithValue("@ContentType", contentType);
-        //                    command.Parameters.AddWithValue("@ImageData", pics);
-
-        //                    conn.Open();
-        //                    command.ExecuteNonQuery();
-        //                    conn.Close();
-        //                }
-        //                StatusLabel.Text = "圖片上傳成功";
-        //            }
-        //            else
-        //            {
-        //                StatusLabel.Text = "已存在相同圖片";
-        //            }
-        //        }
-        //        else
-        //        {
-        //            StatusLabel.Text = "只允許上傳 PNG、JPG、JPEG 圖片格式！";
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        StatusLabel.Text = "檔案上傳失敗：" + ex.Message;
-        //    }
-        //}
-        //else
-        //{
-        //    StatusLabel.Text = "請選擇要上傳的圖片！";
-        //}
+        
         private bool IsAllowedFileType(string contentType) //檢查文件類型是否允許上傳
         {
             string[] allowedTypes = { "image/png", "image/jpeg", "image/jpg", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/pdf" }; // 可根據需求添加或修改允許的文件類型
@@ -253,7 +258,35 @@ namespace CIC
 
                     // 輸出圖片數據
                     Response.BinaryWrite(imageData);
-                    Response.End();
+                    //Response.End();
+                    //Response.Flush();
+                    //Response.SuppressContent = true;
+                    ImageExhibit.ImageUrl = "data:" + contentType + ";base64," + Convert.ToBase64String(imageData);
+                    ImageExhibit.Visible = true;
+                    HaveRead.Text = "已讀";
+
+                    // 將讀取的時間寫回DB的ReadDate欄位
+                    string Updatecon = WebConfigurationManager.ConnectionStrings["CIC_ReportEntities"].ConnectionString;
+                    string updateQuery = "UPDATE Images SET ReadDate = @CurrentDate WHERE Id = @ImageId";
+                    using (SqlConnection Updateconn = new SqlConnection(Updatecon))
+                    {
+                        SqlCommand updateCommand = new SqlCommand(updateQuery, Updateconn);
+                        updateCommand.Parameters.AddWithValue("@CurrentDate", DateTime.Now);
+                        updateCommand.Parameters.AddWithValue("@ImageId", imageID);
+                        Updateconn.Open();
+                        //updateCommand.ExecuteNonQuery();
+                        int rowsAffected = updateCommand.ExecuteNonQuery();
+                        Updateconn.Close();
+
+                        if (rowsAffected > 0)
+                        {
+                            HaveRead.Text = "已讀";
+                        }
+                        else
+                        {
+                            HaveRead.Text = "更新失敗";
+                        }
+                    }
                 }
                 else
                 {

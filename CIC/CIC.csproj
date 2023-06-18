@@ -260,6 +260,7 @@
       <DependentUpon>NorthModel.edmx</DependentUpon>
       <LastGenOutput>NorthModel.cs</LastGenOutput>
     </Content>
+    <Content Include="NorthWind.aspx" />
     <Content Include="Outstanding.aspx" />
     <Content Include="Point_Import.aspx" />
     <Content Include="ExcelFile\112合格造冊.xlsx" />
@@ -466,6 +467,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NorthModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="NorthWind.aspx.cs">
+      <DependentUpon>NorthWind.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NorthWind.aspx.designer.cs">
+      <DependentUpon>NorthWind.aspx</DependentUpon>
     </Compile>
     <Compile Include="Orders.cs">
       <DependentUpon>NorthModel.tt</DependentUpon>
